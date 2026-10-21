@@ -60,23 +60,10 @@
       });
   }
 
-  // Hypothesis annotation client (comments like a doc). Loaded only after decryption, because
-  // replacing <body> would wipe its sidebar, and it must see the real text to anchor notes.
-  function loadAnnotations() {
-    if (document.querySelector('script[data-annotations]')) return;
-    window.hypothesisConfig = function () { return { openSidebar: false, showHighlights: 'always' }; };
-    var s = document.createElement('script');
-    s.src = 'https://hypothes.is/embed.js';
-    s.async = true;
-    s.setAttribute('data-annotations', '');
-    document.head.appendChild(s);
-  }
-
   function unlock(key) {
     return subtle.decrypt({ name: 'AES-GCM', iv: bytes(P.iv) }, key, bytes(P.ct)).then(function (plain) {
       document.body.innerHTML = new TextDecoder().decode(plain);
       initTabs();
-      loadAnnotations();
       return key;
     });
   }
