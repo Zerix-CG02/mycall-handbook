@@ -1,0 +1,5 @@
+# Plaintext source of the handbook. Keep it out of git while the repository is public
+# (GitHub Free only serves Pages from public repos). Remove this line if the repo is private.
+src/handbook.html
+.impeccable/
+.DS_Store
